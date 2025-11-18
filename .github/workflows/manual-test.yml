@@ -1,0 +1,33 @@
+name: Manual Test Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      test-message:
+        description: 'Test message to display'
+        required: false
+        default: 'Hello from manual workflow!'
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Display test message
+        run: |
+          echo "Running manual test workflow"
+          echo "Test message: ${{ inputs.test-message }}"
+      
+      - name: Display environment info
+        run: |
+          echo "Runner OS: ${{ runner.os }}"
+          echo "GitHub Actor: ${{ github.actor }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+      
+      - name: Test completion
+        run: echo "Manual test workflow completed successfully!"
